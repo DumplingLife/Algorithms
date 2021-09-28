@@ -3,6 +3,7 @@ package test;
 public class TestString 
 {
 	public static void main(String[] args) {
+		//qwer
 		String s = "ieaiogerhgijnbqaklerhguioqerughoeruiqvmimqurgierwvmouuyhrshfjkghruiothoiwuvmuithguirghwuo";
 		SuffixArrayPrefixHasher sa = new SuffixArrayPrefixHasher(s);
 		for(int i = 0;i<1000000;i++) {
