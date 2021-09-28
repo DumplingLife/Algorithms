@@ -1,2 +1,4 @@
 /bin/
-
+*.in
+*.classpath
+*.prefs
