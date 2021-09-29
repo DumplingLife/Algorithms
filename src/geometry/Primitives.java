@@ -72,4 +72,14 @@ public class Primitives {
 			d = new Vector(p2.x - p1.x, p2.y - p1.y);
 		}
 	}
+	
+	//t is on range [0,1]
+	static class LineSegment {
+		Point a;
+		Vector d;
+		public LineSegment(Point p1, Point p2) {
+			a = p1;
+			d = new Vector(p2.x - p1.x, p2.y - p1.y);
+		}
+	}
 }
