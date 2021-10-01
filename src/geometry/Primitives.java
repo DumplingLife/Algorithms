@@ -53,10 +53,6 @@ public class Primitives {
 			this.x = x;
 			this.y = y;
 		}
-		//return value is between -pi and pi
-		public double getAngle() {
-			return Math.atan2(x,y);
-		}
 		
 		@Override
 		public String toString() {
