@@ -1,13 +1,15 @@
 package geometry;
 
+import geometry.MyActualConvexHull.Point;
+
 public class PrimitivesCoordinatesForm {
 	public static void main(String[] args) {
 		
 	}
 	
 	static class Point {
-		int x, y;
-		public Point(int x, int y) {
+		long x, y;
+		public Point(long x, long y) {
 			this.x = x;
 			this.y = y;
 		}
@@ -23,6 +25,15 @@ public class PrimitivesCoordinatesForm {
 			this.m = m;
 			this.b = b;
 		}
+		public Line(Point p1, Point p2) {
+			if(p1.x != p2.x) {
+				m = (1.0*p2.y-p1.y)/(p2.x-p1.x);
+				b = p1.y - m*p1.x;
+			}
+		}
+		public double getYAtX(int x) {
+			return m*x + b;
+		}
 		@Override
 		public String toString() {
 			return "y=" + m + "x + " + b;
@@ -31,7 +42,7 @@ public class PrimitivesCoordinatesForm {
 	
 	static class LineSegment {
 		double m, b;
-		int x1, x2;
+		long x1, x2;
 		public LineSegment(Point p1, Point p2) {
 			x1 = Math.min(p1.x,  p2.x);
 			x2 = Math.max(p1.x,  p2.x);

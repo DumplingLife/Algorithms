@@ -17,7 +17,8 @@ public class Primitives {
 	public static Vector multiply(double a, Vector v) {
 		return new Vector(a * v.x, a * v.y);
 	}
-		
+	
+	//use long or double
 	public static double dotp(Vector v1, Vector v2) {
 		return v1.x * v2.x + v1.y * v2.y;
 	}

@@ -4,7 +4,7 @@ public class BinarySearch
 {
 	public static void main(String[] args) {
 		int[] arr = {1, 2, 4, 4, 5, 6, 6, 6, 6, 6, 6, 9};		
-		System.out.println(exists(arr, -1));
+		System.out.println(nearestFromLeft(arr, -1));
 	}
 
 	//index of smallst ele >= x
