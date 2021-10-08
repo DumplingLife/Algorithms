@@ -13,11 +13,16 @@ public class GenerateColumns
 	
 	public static void main(String[] args) throws IOException {
 		//enter config here
-		final int[] minVal = {1, 1, 0};
-		final int[] maxVal = {2_250_000, 2_250_000, 1000};
-		final int numberOfLines = 9_000_000;
+		final int[] minVal = {-100000, -100000};
+		final int[] maxVal = {100000, 100000};
+		final int numberOfLines = 25000;
+
+		BufferedWriter writer = new BufferedWriter(new PrintWriter("gold_2013_Nov_p2_25000.in", "UTF-8"), 10000000);
 		
-		BufferedWriter writer = new BufferedWriter(new PrintWriter("graph2M.in", "UTF-8"), 10000000);
+		//write the first line manually
+		writer.write(numberOfLines + " 50000");
+		writer.newLine();
+		
 		for(int i = 0;i<numberOfLines;i++) {
 			for(int j = 0;j<minVal.length;j++) {
 				writer.write(random(minVal[j], maxVal[j]) + " ");
@@ -26,6 +31,7 @@ public class GenerateColumns
 		}
 		writer.close();
 	}
+	//change the random method if there are more conditions
 	public static int random(int lower, int upper) {
 		return (int) (Math.floor(Math.random() * (upper - lower + 1)) + lower);
 	}
