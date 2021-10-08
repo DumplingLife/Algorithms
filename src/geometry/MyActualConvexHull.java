@@ -31,7 +31,6 @@ public class MyActualConvexHull {
 		});
 		PartialHull bottomHull = new PartialHull(points);
 		
-		
 		System.out.println(topHull.isPointIncluded(new Point(7,5)));
 		System.out.println(bottomHull.isPointIncluded(new Point(7,5)));
 		System.out.println(Arrays.toString(topHull.points));
