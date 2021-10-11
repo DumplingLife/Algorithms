@@ -41,48 +41,20 @@ public class MySweepLine {
 		void doAction();
 	}
 	public static void sweep() {
-		quickSort(sweepLineArr);
-		//might change this to loop through all x values for small grids, see gold_2019_feb_p3 sweep()
+		Arrays.sort(sweepLineArr, (a,b) -> {
+			if(a.getTrigger() < b.getTrigger()) return -1;
+			else if(a.getTrigger() == b.getTrigger()) {
+				if(a.getPriority() > b.getPriority()) return -1;
+				else if(a.getPriority() == b.getPriority()) return 0;
+				else return 1;
+			}
+			else return 1;
+		});
+		
 		for(SweepLineObj ele : sweepLineArr) {
 			ele.doAction();
 		}
 	}
-	//probably put sweep line classes here (instead of under sort)
-	public static void quickSort(SweepLineObj[] arr) {
-		quickSortRecur(arr, 0, arr.length-1);
-	}
-	public static void quickSortRecur(SweepLineObj[] arr, int l, int r) {
-		if(l >= r) return;
-		
-		int pivotIndex = (l+r)/2;
-		int smallCounter = l;
-		for(int i = l;i<=r;i++) {
-			if(compare(arr[i], arr[pivotIndex]) == -1) {
-				if(smallCounter == pivotIndex) pivotIndex = i;
-				swap(arr, smallCounter, i);
-				smallCounter++;
-			}
-		}
-		swap(arr, smallCounter, pivotIndex);
-		
-		quickSortRecur(arr, l, smallCounter-1);
-		quickSortRecur(arr, smallCounter+1, r);
-	}
-	public static void swap(SweepLineObj[] arr, int a, int b) {
-		SweepLineObj temp = arr[a];
-		arr[a] = arr[b];
-		arr[b] = temp;
-	}
-	public static int compare(SweepLineObj a, SweepLineObj b) {
-		if(a.getTrigger() < b.getTrigger()) return -1;
-		else if(a.getTrigger() == b.getTrigger()) {
-			if(a.getPriority() > b.getPriority()) return -1;
-			else if(a.getPriority() == b.getPriority()) return 0;
-			else return 1;
-		}
-		else return 1;
-	}
-	
 	
 	//stop copying
 	//CUSTOMIZE

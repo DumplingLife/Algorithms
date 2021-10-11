@@ -1,6 +1,6 @@
 package geometry;
 
-import geometry.MyActualConvexHull.Point;
+import geometry.MyConvexHull.Point;
 
 public class PrimitivesCoordinatesForm {
 	public static void main(String[] args) {
