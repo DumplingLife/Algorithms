@@ -1,43 +1,41 @@
+//division unfinished
+//nothing is really thouroughly tested, only tested 2-digit stuff
+
 package math;
 
 import test.MyTimer;
 
 public class MyLongLong {
 	public static void main(String[] args) {
-		MyTimer timer = new MyTimer();
-		LL sum = new LL(0);
-		for(int i=0; i<10000000; i++) {
-			addAndMutate(sum, new LL(i));
-		}
-		System.out.println(sum);
-		timer.lap();
+		LL a = new LL((1L<<32) + 100);
+		LL b = new LL(200);
+		subtractAndMutate(a,b);
+		System.out.println(a);
 		
-		long longSum = 0;
-		for(int i=0; i<10000000; i++) {
-			longSum += i;
-		}
-		System.out.println(longSum);
-		timer.lap();
+		//multiplication correctness test
+		/*
+		long x = (int) (Integer.MAX_VALUE * Math.random());
+		long y = (int) (Integer.MAX_VALUE * Math.random());
+		LL xLL = new LL(x);
+		LL yLL = new LL(y);
+		LL zLL = multiply(xLL,yLL);
+		long zLLLong = (castUnsigned(zLL.digits[1]) << 32) + castUnsigned(zLL.digits[0]);
+		if(zLLLong != x*y) System.out.println("error");
+		*/
 		
-		long sum2 = 0;
-		for(int i=Integer.MIN_VALUE; i<Integer.MAX_VALUE-100000; i+=10) {
-			sum2 += castUnsigned(i);
-		}
-		timer.lap();
-		System.out.println(sum2);
-		
-		LL x = new LL((2*1L<<32) + 2000000000);
-		LL y = new LL((2*1L<<32) + 2000000000);
-		System.out.println(x + " * " + y + " =");
-		LL z = multiply(x,y);
-		System.out.println(z);	
+		//comparison correctness test
+		/*
+		LL x = new LL((1<<31) - 1);
+		LL y = new LL(182937409019L);
+		System.out.println(compare(x,y));
+		*/
 	}
 	
 	
 	public static void addAndMutate(LL a, LL b) {
 		int carry = 0;
 		for(int i=0; i<len; i++) {
-			long temp = 0L + (a.digits[i] + (a.digits[i] < 0 ? 1L<<32 : 0)) + (b.digits[i] + (b.digits[i] < 0 ? 1L<<32 : 0)) + carry;
+			long temp = 0L + castUnsigned(a.digits[i]) + castUnsigned(b.digits[i]) + carry;
 			a.digits[i] = (int) temp;
 			carry = (int) (temp >>> 32);
 		}
@@ -53,12 +51,28 @@ public class MyLongLong {
 		a.digits[digit] += b;
 	}
 	
+	public static void subtractAndMutate(LL a, LL b) {
+		int borrow = 0;
+		for(int i=0; i<len; i++) {
+			if(Integer.compareUnsigned(a.digits[i], b.digits[i]) == -1) borrow(a, i+1);
+			a.digits[i] -= b.digits[i];
+		}
+	}
+	public static void borrow(LL a, int digit) {
+		if(digit >= a.digits.length) System.out.println("error: negative");
+		if(a.digits[digit] != 0) a.digits[digit]--;
+		else {
+			a.digits[digit]--;
+			borrow(a, digit+1);
+		}
+	}
+	
 	public static LL multiply(LL a, LL b) {
 		LL c = new LL(0);
 		for(int i=0; i<len; i++) {
 			for(int j=0; j<len; j++) {
 				int cDigit = i+j;
-				long temp = 1L * (a.digits[i] + (a.digits[i] < 0 ? 1L<<32 : 0)) * (b.digits[j] + (b.digits[j] < 0 ? 1L<<32 : 0));
+				long temp = 1L * castUnsigned(a.digits[i]) * castUnsigned(b.digits[j]);
 				int val = (int) temp;
 				int carry = (int) (temp >>> 32);
 				addIntAndMutate(c, val, cDigit);
@@ -68,10 +82,30 @@ public class MyLongLong {
 		return c;
 	}
 	
-	public static void divide(LL a, LL b) {
-		
+	public static void divideAndMutate(LL R, LL D) {
+		//TODO: normalization
+		long d = 0;
+		for(int digit : D.digits) {
+			if(digit != 0) {
+				d = castUnsigned(digit);
+				break;
+			}
+		}
+		for(int i=len; i>=1; i--) {
+			long r = (i==len ? 0 : (R.digits[i] << 32)) + R.digits[i-1];
+			int q = (int) (r/d);
+			subtractAndMutate(R, multiply(new LL(q), D));
+			
+		}
 	}
 	
+	public static int compare(LL a, LL b) {
+		for(int i=len-1; i>=0; i--) {
+			if(a.digits[i] + (1<<31) > b.digits[i] + (1<<31)) return 1;
+			if(a.digits[i] + (1<<31) < b.digits[i] + (1<<31)) return -1;
+		}
+		return 0;
+	}
 	public static long castUnsigned(int x) {
 		return (((long) x) << 32) >>> 32;
 	}

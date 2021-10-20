@@ -3,6 +3,8 @@ package string;
 public class MyPrefixHasher
 {
 	public static void main(String[] args) {
+		//compare test
+		/*
 		for(int i = 0;i<1000000;i++) {
 			String a = "";
 			String b = "";
@@ -22,6 +24,11 @@ public class MyPrefixHasher
 		String b = "ac";
 		System.out.println(a.compareTo(b));
 		System.out.println(compare(a,b));
+		*/
+		PrefixHasher a = new PrefixHasher("abcd");
+		System.out.println(a.hash(2,3));
+		PrefixHasher b = new PrefixHasher("cd");
+		System.out.println(a.hash(1,1));
 		
 	}
 	public static int compare(String a, String b) {
@@ -64,7 +71,7 @@ public class MyPrefixHasher
 			buildExpTable();
 		}
 		public void build() {
-			prefixHashes[0] = str.charAt(0); //get hashCode of first char by casting to int
+			prefixHashes[0] = str.charAt(0);
 			for(int i = 1;i<prefixHashes.length;i++) {
 				prefixHashes[i] = prefixHashes[i-1] * B + str.charAt(i);
 			}
