@@ -25,6 +25,7 @@ public class Primitives {
 	public static double crossp(Vector v1, Vector v2) {
 		return v1.x * v2.y - v1.y * v2.x;
 	}
+	
 	public static Point intersect(Line l1, Line l2) {
 		if(crossp(l1.d, l2.d) == 0) return null;
 		return add(l1.a, multiply(crossp(subtract(l2.a, l1.a), l2.d)/(crossp(l1.d, l2.d)), l1.d));
