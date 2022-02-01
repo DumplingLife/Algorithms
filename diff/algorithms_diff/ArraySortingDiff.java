@@ -1,38 +1,38 @@
-package test;
+/*
+ * countingSort: not tested but looks the exact same, so should be good
+ * radix sort: tested (9M array size), 2x slower
+ */
+
+package algorithms_diff;
 
 import java.util.Arrays;
 
-
-public class SortAccuracyTest {
-	final static int size = 9;
-	final static int max =  9_000_000;
+public class ArraySortingDiff {
 	public static void main(String[] args) {
-		long[] arr = new long[size];
-		randomArray(arr);
-		
-		long[] arr1 = arr.clone();
-		long[] arr2 = arr.clone();
-		
-		MyTimer timer = new MyTimer();
-		arr1 = radixSort(arr1, max);
-		timer.lap("my sort");
-		
-		Arrays.sort(arr2);
-		timer.lap("Arrays.sort");
-		
-		for(int i=0; i<size; i++) {
-			if(arr1[i] != arr2[i]) System.out.println(i);
+		long[] arr = new long[] {4,3,10006,1,10007,8,4,10003};
+		int[] arr2 = new int[arr.length];
+		for(int i=0; i<arr.length; i++) {
+			arr2[i] = (int) (arr[i]/4);
 		}
+		arr = radixSort(arr, 8);
+		System.out.println(Arrays.toString(arr));
 	}
-	public static int random(int lower, int upper) {
-		return (int) (Math.floor(Math.random() * (upper - lower + 1)) + lower);
-	}
-	public static void randomArray(long[] arr) {
-		for(int i = 0;i<arr.length;i++) {
-			arr[i] = random(0, max);
+	
+	public static void countingSort(int[] arr, int max) {
+		int[] counts = new int[max+1];
+		for(int ele : arr) {
+			counts[ele]++;
+		}
+		int pointer = 0;
+		for(int ele=0; ele<=max; ele++) {
+			for(; counts[ele]>0; counts[ele]--) {
+				arr[pointer] = ele;
+				pointer++;
+			}
 		}
 	}
 	
+	//return arr after sorted by sortBy (but do not sort sortBy)
 	public static long[] stableCountingSort(long[] arr, int[] sortBy, int max) {
 		int[] culCounts = new int[max+1];
 		for(int ele : sortBy) {
@@ -49,6 +49,7 @@ public class SortAccuracyTest {
 		}
 		return newArr;
 	}
+	
 	public static long[] radixSort(long[] arr, long max) {
 		final int base = 1024;
 		for(long placeVal=1; placeVal<=max; placeVal*=base) {

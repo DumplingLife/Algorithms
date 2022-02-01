@@ -1,10 +1,15 @@
 package geometry;
 
-import geometry.MyConvexHull.Point;
-
 public class PrimitivesCoordinatesForm {
 	public static void main(String[] args) {
 		
+	}
+	
+	public static Point midpoint(Point a, Point b) {
+		return new Point((a.x+b.x)/2, (a.y+b.y)/2);
+	}
+	public static double dist(Point a, Point b) {
+		return Math.sqrt((b.x-a.x)*(b.x-a.x) + (b.y-a.y)*(b.y-a.y));
 	}
 	
 	static class Point {

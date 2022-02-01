@@ -23,8 +23,8 @@ public class SortComparison {
 		for(int i = 0;i<reps;i++) ArraySorting.countingSort(arrs[arrsCounter++], max);
 		timer.lap("counting sort");
 		
-		for(int i = 0;i<reps;i++) ArraySorting.bucketSort(arrs[arrsCounter++], max);
-		timer.lap("bucket sort");
+		for(int i = 0;i<reps;i++) radixSortDiff(arrs[arrsCounter++], max);
+		timer.lap("radix sort Diff sort");
 		
 		for(int i = 0;i<reps;i++) stableCountingSort(arrs[arrsCounter++], max);
 		timer.lap("stable counting sort");
@@ -111,5 +111,35 @@ public class SortComparison {
 		public int get(int index) {
 			return arr[index];
 		}
+	}
+	
+	//return arr after sorted by sortBy (but do not sort sortBy)
+	public static int[] stableCountingSortDiff(int[] arr, int[] sortBy, int max) {
+		int[] culCounts = new int[max+1];
+		for(int ele : sortBy) {
+			culCounts[ele]++;
+		}
+		for(int i=1; i<=max; i++) {
+			culCounts[i] += culCounts[i-1];
+		}
+		
+		int[] newArr = new int[arr.length];
+		for(int i=arr.length-1; i>=0; i--) {
+			newArr[culCounts[sortBy[i]]-1] = arr[i];
+			culCounts[sortBy[i]]--;
+		}
+		return newArr;
+	}
+	
+	public static int[] radixSortDiff(int[] arr, long max) {
+		final int base = 1024;
+		for(long placeVal=1; placeVal<=max; placeVal*=base) {
+			int[] sortBy = new int[arr.length];
+			for(int i=0; i<arr.length; i++) {
+				sortBy[i] = (int) ((arr[i]/placeVal) % base);
+			}
+			arr = stableCountingSortDiff(arr, sortBy, base);
+		}
+		return arr;
 	}
 }

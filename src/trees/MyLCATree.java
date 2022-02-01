@@ -32,7 +32,7 @@ public class MyLCATree
 		int a = 0;
 	}
 	
-	static class Tree
+	public static class Tree
 	{
 		Node[] nodes;
 		int log2H;
@@ -137,7 +137,7 @@ public class MyLCATree
 	}
 	//temporary graph to create a tree from
 	//stores nodes as int indexes
-	static class TempGraph
+	public static class TempGraph
 	{
 		Node[] nodes;
 		class Node{

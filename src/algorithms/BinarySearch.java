@@ -4,16 +4,16 @@ public class BinarySearch
 {
 	public static void main(String[] args) {
 		int[] arr = {1, 2, 4, 4, 5, 6, 6, 6, 6, 6, 6, 9};		
-		System.out.println(nearestFromLeft(arr, -1));
+		System.out.println(closestFromLeft(arr, -1));
 	}
 
 	//index of smallst ele >= x
-	public static int nearestFromRight(int[] arr, int x) {
+	public static int closestFromRight(int[] arr, int x) {
 		int l = 0;
 		int r = arr.length;
 		while(l < r) {
 			int m = (l+r)/2;
-			if(arr[m] >= x) {
+			if(x <= arr[m]) {
 				r = m;
 			}
 			else l = m+1;
@@ -21,7 +21,7 @@ public class BinarySearch
 		return l;
 	}
 	//index of greatest element <= x
-	public static int nearestFromLeft(int[] arr, int x) {
+	public static int closestFromLeft(int[] arr, int x) {
 		int l = -1;
 		int r = arr.length-1;
 		while(l < r) {
