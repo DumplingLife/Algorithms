@@ -4,7 +4,7 @@ import java.util.Arrays;
 import segmenttrees.MySegmentTree.SegmentTree;
 import segmenttrees.MyDynamicST.DynamicSegmentTree;
 
-public class STAccuracyComparison {
+public class STAccuracyTest {
 	public static void main(String[] args) {
 		final int size = 1000000;
 		final int numElements = 100000;

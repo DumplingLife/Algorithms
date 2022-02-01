@@ -80,7 +80,7 @@ public class MySTLazyProp
 	}
 	
 	
-	static class SegmentTreeLazyProp {
+	public static class SegmentTreeLazyProp {
 		int[] t;
 		boolean[] lazyValExists;
 		int[] lazyVals;
