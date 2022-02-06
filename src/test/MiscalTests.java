@@ -22,8 +22,5 @@ public class MiscalTests
 		}
 		System.out.println(sum);
 		timer.lap();
-		
-		//1/31 6:09PM test
-		//1/31 6:22PM test
 	}
 }
