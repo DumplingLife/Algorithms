@@ -2,7 +2,8 @@ package doubles;
 
 public class EstimateDouble {
 	public static void main(String[] args) {
-		estimateAs_msqrtn(2095.3281533919);
+		estimateAs_msqrtn(254.611467726589);
+		estimateAs_sqrtaminussqrtb(13.5388415);
 	}
 	
 	public static void estimateAsFraction(double x) {
@@ -25,6 +26,23 @@ public class EstimateDouble {
 					minError = estimateError;
 					res = n + "sqrt(" + m + "), error: " + estimateError;
 				}
+			}
+		}
+		System.out.println(res);
+	}
+	
+	public static void estimateAs_sqrtaminussqrtb(double x) {
+		double minError = Double.POSITIVE_INFINITY;
+		String res = "not found";
+		for(int a=0; a<=1000; a++) {
+			for(int b=0; b<=1000; b++) {
+				double estimate = Math.sqrt(a) - Math.sqrt(b);
+				double estimateError = Math.abs(x-estimate);
+				if(estimateError < minError) {
+					minError = estimateError;
+					res = a + " " + b + " , error: " + estimateError;
+				}
+				
 			}
 		}
 		System.out.println(res);
